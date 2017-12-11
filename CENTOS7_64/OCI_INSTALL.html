@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>OCI_INSTALL</title>
+</head>
+<body>
+
+    <h1>OCI_INSTALL</h1>
+    1.安装配置oracle-instantclient
+    rpm-ivh oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm
+    rpm -ivh oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm
+    rpm -ivh oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm
+    （默认安装路径为/usr/lib/oracle/11.2/client64，如需指定路径使用--prefix前缀）
+
+    配置环境变量
+    vim /etc/profile
+
+    添加以下内容：
+    export ORACLE_HOME=/usr/lib/oracle/11.2/client64
+    export  LD_LIBRARY_PATH=/usr/lib/oracle/11.2/client64/lib:/usr/local/lib
+    export ORACLE_SID=orcl
+    export PATH=$PATH:$ORACLE_HOME/bin
+    export NLS_LANG=AMERICAN_AMERICA.UTF8
+
+    source /etc/profile
+    cd /usr/lib/oracle/11.2/client64/bin
+    sqlplus64 system/oracle@10.1.15.151/orcl
+    显示Connect to:
+    ......
+    表明oracle-instantclient安装成功（上面system为用户名，oracle为密码orcl是10.1.15.151机器上的数据库实例）
+
+    2.安装automake1.11.1
+     查看automake版本信息
+    automake --version
+
+    如果不是1.11.1 继续安装
+    tar -xzvf automake 1.11.1.tar.gz
+    cd automake 1.11.1
+    ./configure
+    make
+    makeinstall
+
+    3.安装配置OCI
+    tar -xzvf ocilib-4.1.0-gnu.tar.gz
+    cd ocilib-4.1.0
+    ./configure --with-oracle-lib-path=/usr/lib/oracle/11.2/client64/lib--with-oracle-headers-path=/usr/include/oracle/11.2/client64
+
+    make
+    make install
+
+    编程的时候需要添加：
+    #pragma comment(lib,"//data//oracle//product//11.2.0//db_1/lib//ociliba.lib")
+
+    编译命令为:
+    g++ main.o operate_oracle.o -o main-I/data/oracle/product/11.2.0/db_1/rdbms/public-L/usr/lib/oracle/11.2/client64/lib -locilib -lclntsh
+
+    环境变量配置无效：
+    必须直接：export LD_LIBRARY_PATH=/usr/lib/oracle/11.2/client64/lib:/usr/local/lib
+
+</body>
+</html>
