@@ -1,62 +1,52 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>OCI_INSTALL</title>
 </head>
 <body>
-
-    <h1>OCI_INSTALL</h1>
-    1.°²×°ÅäÖÃoracle-instantclient
-    rpm-ivh oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm
-    rpm -ivh oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm
-    rpm -ivh oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm
-    £¨Ä¬ÈÏ°²×°Â·¾¶Îª/usr/lib/oracle/11.2/client64£¬ÈçĞèÖ¸¶¨Â·¾¶Ê¹ÓÃ--prefixÇ°×º£©
-
-    ÅäÖÃ»·¾³±äÁ¿
-    vim /etc/profile
-
-    Ìí¼ÓÒÔÏÂÄÚÈİ£º
-    export ORACLE_HOME=/usr/lib/oracle/11.2/client64
-    export  LD_LIBRARY_PATH=/usr/lib/oracle/11.2/client64/lib:/usr/local/lib
-    export ORACLE_SID=orcl
-    export PATH=$PATH:$ORACLE_HOME/bin
-    export NLS_LANG=AMERICAN_AMERICA.UTF8
-
-    source /etc/profile
-    cd /usr/lib/oracle/11.2/client64/bin
-    sqlplus64 system/oracle@10.1.15.151/orcl
-    ÏÔÊ¾Connect to:
-    ......
-    ±íÃ÷oracle-instantclient°²×°³É¹¦£¨ÉÏÃæsystemÎªÓÃ»§Ãû£¬oracleÎªÃÜÂëorclÊÇ10.1.15.151»úÆ÷ÉÏµÄÊı¾İ¿âÊµÀı£©
-
-    2.°²×°automake1.11.1
-     ²é¿´automake°æ±¾ĞÅÏ¢
-    automake --version
-
-    Èç¹û²»ÊÇ1.11.1 ¼ÌĞø°²×°
-    tar -xzvf automake 1.11.1.tar.gz
-    cd automake 1.11.1
-    ./configure
-    make
-    makeinstall
-
-    3.°²×°ÅäÖÃOCI
-    tar -xzvf ocilib-4.1.0-gnu.tar.gz
-    cd ocilib-4.1.0
-    ./configure --with-oracle-lib-path=/usr/lib/oracle/11.2/client64/lib--with-oracle-headers-path=/usr/include/oracle/11.2/client64
-
-    make
-    make install
-
-    ±à³ÌµÄÊ±ºòĞèÒªÌí¼Ó£º
-    #pragma comment(lib,"//data//oracle//product//11.2.0//db_1/lib//ociliba.lib")
-
-    ±àÒëÃüÁîÎª:
-    g++ main.o operate_oracle.o -o main-I/data/oracle/product/11.2.0/db_1/rdbms/public-L/usr/lib/oracle/11.2/client64/lib -locilib -lclntsh
-
-    »·¾³±äÁ¿ÅäÖÃÎŞĞ§£º
-    ±ØĞëÖ±½Ó£ºexport LD_LIBRARY_PATH=/usr/lib/oracle/11.2/client64/lib:/usr/local/lib
-
-</body>
+    <div>
+        <h1>OCI_INSTALL</h1>
+        <pre>
+å¿«é€Ÿæ’åºï¼šquick sort
+æ—¶é—´å¤æ‚åº¦ï¼šO(nlogn)
+ç©ºé—´å¤æ‚åº¦ï¼šO(n)
+ç¨³å®šæ€§ï¼šç¨³å®š
+TIME:2017å¹´10æœˆ18æ—¥ 13:56:46
+*/
+void swap(int &a,int &b)
+{
+	int temp=a;
+	a=b;
+	b=temp;
+}
+int partition(int array[],int low,int high)
+{
+	int privot_key=array[low];
+	while(low<high) {
+                    while(low<high&&array[high]>=privot_key)
+		{
+			high--;
+		}
+		swap(array[low],array[high]);
+		while(low<high&&array[low]<=privot_key)
+		{
+			low++;
+		}
+		swap(array[low],array[high]);
+	}
+	return low;
+}
+void quick_sort(int array[],int low,int high)
+{
+	if(low<high)
+	{
+		int privot_position=partition(array,low,high);
+		quick_sort(array,low,privot_position-1);
+		quick_sort(array,privot_position+1,high);
+	}
+}
+       </pre>
+    </div>
+ </body>
 </html>

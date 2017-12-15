@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<body>
+    <div style="text-align:center;">
+        <button onclick="play_pause()">播放/暂停</button>
+        <br />
+        <video id="video1" width="1024" height="600">
+            <source src="TIME_REFLUX.mp4" type="video/mp4" />
+        </video>
+    </div>
+    <script type="text/javascript">
+var my_video=document.getElementById("video1");
+function play_pause()
+{
+    if (my_video.paused)
+    {
+        my_video.play();
+    }
+    else
+    {
+        my_video.pause();
+    }
+}
+    </script>
+</body>
+</html>

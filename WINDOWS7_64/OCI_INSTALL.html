@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -8,16 +8,16 @@
 
     <h1>OCI_INSTALL</h1>
     <p>
-    1.°²×°ÅäÖÃoracle-instantclient
+    1.ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½oracle-instantclient
     rpm-ivh oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm
     rpm -ivh oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm
     rpm -ivh oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm
-    £¨Ä¬ÈÏ°²×°Â·¾¶Îª/usr/lib/oracle/11.2/client64£¬ÈçÐèÖ¸¶¨Â·¾¶Ê¹ÓÃ--prefixÇ°×º£©
+    ï¿½ï¿½Ä¬ï¿½Ï°ï¿½×°Â·ï¿½ï¿½Îª/usr/lib/oracle/11.2/client64ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Â·ï¿½ï¿½Ê¹ï¿½ï¿½--prefixÇ°×ºï¿½ï¿½
 
-    ÅäÖÃ»·¾³±äÁ¿
+    ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     vim /etc/profile
 
-    Ìí¼ÓÒÔÏÂÄÚÈÝ£º
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½
     export ORACLE_HOME=/usr/lib/oracle/11.2/client64
     export  LD_LIBRARY_PATH=/usr/lib/oracle/11.2/client64/lib:/usr/local/lib
     export ORACLE_SID=orcl
@@ -27,22 +27,22 @@
     source /etc/profile
     cd /usr/lib/oracle/11.2/client64/bin
     sqlplus64 system/oracle@10.1.15.151/orcl
-    ÏÔÊ¾Connect to:
+    ï¿½ï¿½Ê¾Connect to:
     ......
-    ±íÃ÷oracle-instantclient°²×°³É¹¦£¨ÉÏÃæsystemÎªÓÃ»§Ãû£¬oracleÎªÃÜÂëorclÊÇ10.1.15.151»úÆ÷ÉÏµÄÊý¾Ý¿âÊµÀý£©
+    ï¿½ï¿½ï¿½ï¿½oracle-instantclientï¿½ï¿½×°ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½systemÎªï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½oracleÎªï¿½ï¿½ï¿½ï¿½orclï¿½ï¿½10.1.15.151ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½Ý¿ï¿½Êµï¿½ï¿½ï¿½ï¿½
 
-    2.°²×°automake1.11.1
-     ²é¿´automake°æ±¾ÐÅÏ¢
+    2.ï¿½ï¿½×°automake1.11.1
+     ï¿½é¿´automakeï¿½æ±¾ï¿½ï¿½Ï¢
     automake --version
 
-    Èç¹û²»ÊÇ1.11.1 ¼ÌÐø°²×°
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1.11.1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°
     tar -xzvf automake 1.11.1.tar.gz
     cd automake 1.11.1
     ./configure
     make
     makeinstall
 
-    3.°²×°ÅäÖÃOCI
+    3.ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½OCI
     tar -xzvf ocilib-4.1.0-gnu.tar.gz
     cd ocilib-4.1.0
     ./configure --with-oracle-lib-path=/usr/lib/oracle/11.2/client64/lib--with-oracle-headers-path=/usr/include/oracle/11.2/client64
@@ -50,14 +50,14 @@
     make
     make install
 
-    ±à³ÌµÄÊ±ºòÐèÒªÌí¼Ó£º
+    ï¿½ï¿½Ìµï¿½Ê±ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ó£ï¿½
     #pragma comment(lib,"//data//oracle//product//11.2.0//db_1/lib//ociliba.lib")
 
-    ±àÒëÃüÁîÎª:
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª:
     g++ main.o operate_oracle.o -o main-I/data/oracle/product/11.2.0/db_1/rdbms/public-L/usr/lib/oracle/11.2/client64/lib -locilib -lclntsh
 
-    »·¾³±äÁ¿ÅäÖÃÎÞÐ§£º
-    ±ØÐëÖ±½Ó£ºexport LD_LIBRARY_PATH=/usr/lib/oracle/11.2/client64/lib:/usr/local/lib
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
+    ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó£ï¿½export LD_LIBRARY_PATH=/usr/lib/oracle/11.2/client64/lib:/usr/local/lib
         </p>
 </body>
 </html>

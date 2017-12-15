@@ -1,0 +1,31 @@
+﻿
+<!DOCTYPE html>
+<html>
+    <body>
+        <pre>
+/*
+直接插入排序
+时间复杂度：O(n^2)
+空间复杂度：O(1)
+稳定性：稳定
+TIME：2017年12月9日 10:19:36
+*/
+void straight_insertion_sort(int array[],int array_length)
+{
+    int j=0;
+    for(int i=1;i&ltarray_length;i++)
+    {
+        if(array[i-1]&gtarray[i])
+        {
+            int temp=array[i];
+            for(j=i-1;j&gt=0&&array[j]&gttemp;j--)
+            {
+                array[j+1]=array[j];
+            }
+            array[j+1]=temp;
+        }
+    }
+}
+</pre>
+    </body>
+</html>

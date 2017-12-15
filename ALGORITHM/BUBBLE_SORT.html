@@ -1,0 +1,31 @@
+﻿
+<!DOCTYPE html>
+<html>
+    <body>
+        <pre>
+/*
+冒泡排序：bubble sort
+时间复杂度：O(n^2)
+空间复杂度：O(1)
+稳定性：稳定
+TIME:2017年10月17日 09:43:56
+ascend
+*/
+void bubble_sort(int array[],int array_length)
+{
+	for(int i=0;i&ltarray_length;i++)
+	{
+		for(int j=0;j&ltarray_length-i-1;j++)
+		{
+			if(array[j]&gtarray[j+1])
+			{
+				int temp=array[j+1];
+				array[j+1]=array[j];
+				array[j]=temp;
+			}
+		}
+	}
+}
+</pre>
+    </body>
+</html>

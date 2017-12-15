@@ -1,0 +1,48 @@
+﻿
+<!DOCTYPE html>
+<html>
+    <body>
+        <pre>
+/*
+快速排序：quick sort
+时间复杂度：O(nlogn)
+空间复杂度：O(n)
+稳定性：稳定
+TIME:2017年10月18日 13:56:46
+*/
+void swap(int &a,int &b)
+{
+	int temp=a;
+	a=b;
+	b=temp;
+}
+int partition(int array[],int low,int high)
+{
+	int privot_key=array[low];
+	while(low&lthigh)
+	{
+		while(low&lthigh&&array[high]&gt=privot_key)
+		{
+			high--;
+		}
+		swap(array[low],array[high]);
+		while(low&lthigh&&array[low]&lt=privot_key)
+		{
+			low++;
+		}
+		swap(array[low],array[high]);
+	}
+	return low;
+}
+void quick_sort(int array[],int low,int high)
+{
+	if(low&lthigh)
+	{
+		int privot_position=partition(array,low,high);
+		quick_sort(array,low,privot_position-1);
+		quick_sort(array,privot_position+1,high);
+	}
+}
+</pre>
+    </body>
+</html>
