@@ -1,0 +1,24 @@
+﻿
+<!DOCTYPE html>
+<html>
+    <body>
+        <pre>
+typedef struct tree_node
+{
+	int value=0;
+	tree_node *left=NULL;
+	tree_node *right=NULL;
+};
+tree_node * invert_tree(tree_node *node)
+{
+	if(NULL!=node)
+	{
+		tree_node *temp=node-&gtleft;
+		node-&gtleft=invert_tree(node-&gtright);
+		node-&gtright=invert_tree(temp);
+	}	
+	return node;
+}
+</pre>
+    </body>
+</html>

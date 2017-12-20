@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    LAST_MODIFY_TIME:2017年12月20日 09:37:10
+    <div>
+        <h1>HADOOP_INSTALL</h1>
+        <pre>
+            -----------------------------------------------------------------------
+HADOOP_INSTALL
+这里注意所有的主机名需要规范设置。不能用下划线来做分隔符，只能用减号。
+同时不能在配置文件里面使用ip地址。而要使用主机名。
+--------------------------------------------------------------
+1、创建数据存放的文件夹
+mkdir  /opt/hadoop
+mkdir  /opt/hadoop/tmp
+mkdir  /opt/hadoop/var
+mkdir  /opt/hadoop/dfs
+mkdir  /opt/hadoop/dfs/name
+mkdir  /opt/hadoop/dfs/data
+2、将压缩包放到/opt/hadoop/下
+vim /etc/hosts
+all IP hostname
+3、tar -xzvf hadoop-2.8.0.tar.gz	#解压
+4、vim /opt/hadoop/hadoop-2.8.0/etc/hadoop/core-site.xml	#配置文件夹
+在&ltconfiguration&gt节点内加入配置:
+ &ltproperty&gt
+        &ltname&gthadoop.tmp.dir&lt/name&gt
+        &ltvalue&gt/opt/hadoop/tmp&lt/value&gt
+        &ltdescription&gtAbase for other temporary directories.&lt/description&gt
+   &lt/property&gt
+   &ltproperty&gt
+        &ltname&gtfs.default.name&lt/name&gt
+        &ltvalue&gthdfs://hadoop-namenode:9000&lt/value&gt
+   &lt/property&gt
+6、 修改hadoop-env.sh
+ 修改/opt/hadoop/hadoop-2.8.0/etc/hadoop/hadoop-env.sh文件
+将export   JAVA_HOME=${JAVA_HOME}修改为：
+export   JAVA_HOME=/opt/java/jdk1.8.0_144
+注意：修改为自己的JDK路径
+7、修改hdfs-site.xml
+在&ltconfiguration&gt节点内加入配置:
+&ltproperty&gt
+   &ltname&gtdfs.name.dir&lt/name&gt
+   &ltvalue&gt/opt/hadoop/dfs/name&lt/value&gt
+&lt/property&gt
+&ltproperty&gt
+   &ltname&gtdfs.data.dir&lt/name&gt
+   &ltvalue&gt/opt/hadoop/dfs/data&lt/value&gt 
+&lt/property&gt
+&ltproperty&gt
+   &ltname&gtdfs.replication&lt/name&gt
+   &ltvalue&gt2&lt/value&gt节点个数？
+&lt/property&gt
+&ltproperty&gt
+      &ltname&gtdfs.permissions&lt/name&gt
+      &ltvalue&gtfalse&lt/value&gt
+      &ltdescription&gtneed not permissions&lt/description&gt
+&lt/property&gt
+ 注意：dfs.permissions配置为false后，可以允许不要检查权限就生成dfs上的文件，方便倒是方便了，但是你需要防止误删除，请将它设置为true，或者直接将该property节点删除，因为默认就是true
+8、新建并且修改mapred-site.xml
+ 在该版本中，有一个名为mapred-site.xml.template的文件，复制该文件，然后改名为mapred-site.xml，命令是：
+cp   /opt/hadoop/hadoop-2.8.0/etc/hadoop/mapred-site.xml.template     /opt/hadoop/hadoop-2.8.0/etc/hadoop/mapred-site.xml
+在&ltconfiguration&gt节点内加入配置:
+ &ltproperty&gt
+   &ltname&gtmapred.job.tracker&lt/name&gt
+   &ltvalue&gthadoop-namenode:49001&lt/value&gt
+&lt/property&gt
+&ltproperty&gt
+      &ltname&gtmapred.local.dir&lt/name&gt
+       &ltvalue&gt/opt/hadoop/var&lt/value&gt
+&lt/property&gt
+&ltproperty&gt
+       &ltname&gtmapreduce.framework.name&lt/name&gt
+       &ltvalue&gtyarn&lt/value&gt
+&lt/property&gt
+10、修改/opt/hadoop/hadoop-2.8.0/etc/hadoop/slaves文件，将里面的localhost删除，添加如下内容：
+hadoop-datanodes0 ....
+11、修改/opt/hadoop/hadoop-2.8.0/etc/hadoop/yarn-site.xml文件，
+  在&ltconfiguration&gt节点内加入配置(注意了，内存根据机器配置越大越好，我这里只配2个G是因为机器不行):
+&ltproperty&gt
+        &ltname&gtyarn.resourcemanager.hostname&lt/name&gt
+        &ltvalue&gthadoop-namenode&lt/value&gt
+   &lt/property&gt
+   &ltproperty&gt
+        &ltdescription&gtThe address of the applications manager interface in the RM.&lt/description&gt
+        &ltname&gtyarn.resourcemanager.address&lt/name&gt
+        &ltvalue&gt${yarn.resourcemanager.hostname}:8032&lt/value&gt
+   &lt/property&gt
+   &ltproperty&gt
+       &ltdescription&gtThe address of the scheduler interface.&lt/description&gt
+        &ltname&gtyarn.resourcemanager.scheduler.address&lt/name&gt
+        &ltvalue&gt${yarn.resourcemanager.hostname}:8030&lt/value&gt
+   &lt/property&gt
+   &ltproperty&gt
+        &ltdescription&gtThe http address of the RM web application.&lt/description&gt
+        &ltname&gtyarn.resourcemanager.webapp.address&lt/name&gt
+        &ltvalue&gt${yarn.resourcemanager.hostname}:8088&lt/value&gt
+   &lt/property&gt
+   &ltproperty&gt
+        &ltdescription&gtThe https adddress of the RM web application.&lt/description&gt
+        &ltname&gtyarn.resourcemanager.webapp.https.address&lt/name&gt
+        &ltvalue&gt${yarn.resourcemanager.hostname}:8090&lt/value&gt
+   &lt/property&gt
+   &ltproperty&gt
+        &ltname&gtyarn.resourcemanager.resource-tracker.address&lt/name&gt
+        &ltvalue&gt${yarn.resourcemanager.hostname}:8031&lt/value&gt
+   &lt/property&gt
+   &ltproperty&gt
+        &ltdescription&gtThe address of the RM admin interface.&lt/description&gt
+        &ltname&gtyarn.resourcemanager.admin.address&lt/name&gt
+        &ltvalue&gt${yarn.resourcemanager.hostname}:8033&lt/value&gt
+   &lt/property&gt
+   &ltproperty&gt
+      &ltname&gtyarn.nodemanager.aux-services&lt/name&gt
+        &ltvalue&gtmapreduce_shuffle&lt/value&gt
+   &lt/property&gt
+   &ltproperty&gt
+        &ltname&gtyarn.scheduler.maximum-allocation-mb&lt/name&gt
+        &ltvalue&gt2048&lt/value&gt
+        &ltdiscription&gt每个节点可用内存,单位MB,默认8182MB&lt/discription&gt
+   &lt/property&gt
+   &ltproperty&gt
+        &ltname&gtyarn.nodemanager.vmem-pmem-ratio&lt/name&gt
+        &ltvalue&gt2.1&lt/value&gt
+   &lt/property&gt
+   &ltproperty&gt
+       &ltname&gtyarn.nodemanager.resource.memory-mb&lt/name&gt
+      &ltvalue&gt2048&lt/value&gt
+&lt/property&gt
+   &ltproperty&gt
+        &ltname&gtyarn.nodemanager.vmem-check-enabled&lt/name&gt
+        &ltvalue&gtfalse&lt/value&gt
+&lt/property&gt
+说明：yarn.nodemanager.vmem-check-enabled这个的意思是忽略虚拟内存的检查，如果你是安装在虚拟机上，这个配置很有用，配上去之后后续操作不容易出问题。如果是实体机上，并且内存够多，可以将这个配置去掉。
+-----------------------------------------------------------------------
+12、  因为hadoop-namenode是namenode，hadoop-datanodes是datanode，所以只需要对hadoop0进行初始化操作，也就是对hdfs进行格式化。
+进入到hadoop0这台机器的/opt/hadoop/hadoop-2.8.0/bin目录，也就是执行命令：
+cd   /opt/hadoop/hadoop-2.8.0/bin
+执行初始化脚本，也就是执行命令：
+ ./hadoop  namenode  -format
+。Exitting with status 0 表示成功，Exitting with status 1: 则是出错
+13、在namenode上执行启动命令
+cd    /opt/hadoop/hadoop-2.8.0/sbin/
+ ./start-all.sh
+第一次执行上面的启动命令，会需要我们进行交互操作，在问答界面上输入yes回车
+14、测试hadoop
+http://192.168.200.90:50070/
+http://192.168.200.90:8088/
+       </pre>
+    </div>
+ </body>
+</html>

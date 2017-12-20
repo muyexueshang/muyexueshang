@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    LAST_MODIFY_TIME:2017年12月20日 09:33:36
+    <div>
+        <h1>JDK_INSTALL</h1>
+        <pre>          
+一、卸载原有的JAVA
+rpm -qa|grep java
+rpm -e --nodeps 名字
+二、安装新的
+JDK_VERSION:1.8.0_144
+1、将JDK安装包上传到/opt/java/
+2、tar -zxvf jdk-8u121-linux-x64.tar.gz
+3、修改/etc/profile,添加以下内容
+export JAVA_HOME=/opt/java/jdk1.8.0_144
+export  CLASSPATH=.:$:CLASSPATH:$JAVA_HOME/lib/
+export  PATH=$PATH:$JAVA_HOME/bin
+4、source /etc/profile	#更新修改，
+5、java -version #测试安装成功
+       </pre>
+    </div>
+ </body>
+</html>

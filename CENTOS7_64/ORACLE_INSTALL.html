@@ -1,0 +1,599 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:宋体;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:宋体;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@宋体";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	font-size:10.5pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoHeader, li.MsoHeader, div.MsoHeader
+	{mso-style-link:"页眉 Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:center;
+	layout-grid-mode:char;
+	border:none;
+	padding:0cm;
+	font-size:9.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+	{mso-style-link:"页脚 Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	layout-grid-mode:char;
+	font-size:9.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:"批注框文本 Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	font-size:9.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	text-indent:21.0pt;
+	font-size:10.5pt;
+	font-family:"Calibri","sans-serif";}
+span.Char
+	{mso-style-name:"页眉 Char";
+	mso-style-link:页眉;}
+span.Char0
+	{mso-style-name:"页脚 Char";
+	mso-style-link:页脚;}
+span.Char1
+	{mso-style-name:"批注框文本 Char";
+	mso-style-link:批注框文本;}
+.MsoChpDefault
+	{font-family:"Calibri","sans-serif";}
+ /* Page Definitions */
+ @page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;
+	layout-grid:15.6pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=ZH-CN style='text-justify-trim:punctuation'>
+
+<div class=WordSection1 style='layout-grid:15.6pt'>
+
+<p class=MsoNormal><span style='font-family:宋体'>数据库版本号：</span><span lang=EN-US>Oracle_11g_R2</span></p>
+
+<p class=MsoNormal><span style='font-family:宋体'>问题：</span><span lang=EN-US>stdin
+has more than one entry</span></p>
+
+<p class=MsoNormal><span style='font-family:宋体'>解决方案：</span><span lang=EN-US>tar</span><span
+style='font-family:宋体'>命令是调用了</span><span lang=EN-US>gunzip</span><span
+style='font-family:宋体'>命令的，</span></p>
+
+<p class=MsoNormal><span style='font-family:宋体'>对只有一个压缩内容的文件来解压的时候才用</span><span
+lang=EN-US>tar</span><span style='font-family:宋体'>，</span> <span
+style='font-family:宋体'>而如果压缩包里有多个文件被压缩了，</span></p>
+
+<p class=MsoNormal><span lang=EN-US>tar</span><span style='font-family:宋体'>命令不能继续工作。可以采用</span><span
+lang=EN-US>unzip</span><span style='font-family:宋体'>命令去解压。</span></p>
+
+<p class=MsoNormal><b><span style='font-size:26.0pt;font-family:宋体'>第一步：</span></b></p>
+
+<p class=MsoNormal><span style='font-family:宋体'>创建运行</span><span lang=EN-US>oracle</span><span
+style='font-family:宋体'>数据库的系统用户和用户组</span></p>
+
+<p class=MsoNormal><span lang=EN-US>su root</span><span style='font-family:
+宋体'>　　</span><span lang=EN-US>#</span><span style='font-family:宋体'>切换到</span><span
+lang=EN-US>root</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>groupadd oinstall</span><span
+style='font-family:宋体'>　　</span><span lang=EN-US>#</span><span
+style='font-family:宋体'>创建数据库软件用户组</span><span lang=EN-US>oinstall</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>groupadd dba</span><span style='font-family:
+宋体'>　　</span><span lang=EN-US>#</span><span style='font-family:宋体'>创建数据库用户组</span><span
+lang=EN-US>dba</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>useradd -g oinstall -g dba -m oracle</span><span
+style='font-family:宋体'>　　</span><span lang=EN-US>#</span><span
+style='font-family:宋体'>创建</span><span lang=EN-US>oracle</span><span
+style='font-family:宋体'>用户，并加入到</span><span lang=EN-US>oinstall</span><span
+style='font-family:宋体'>和</span><span lang=EN-US>dba</span><span
+style='font-family:宋体'>用户组</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>passwd oracle</span><span style='font-family:
+宋体'>　　</span><span lang=EN-US>#</span><span style='font-family:宋体'>设置用户</span><span
+lang=EN-US>oracle</span><span style='font-family:宋体'>的登陆密码，</span> </p>
+
+<p class=MsoNormal><span lang=EN-US>Retype new password: </span><span
+style='font-family:宋体'>　　</span><span lang=EN-US># </span><span
+style='font-family:宋体'>确认密码</span><span lang=EN-US>oracle</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>id oracle # </span><span style='font-family:
+宋体'>查看新建的</span><span lang=EN-US>oracle</span><span style='font-family:宋体'>用户</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:26.0pt;font-family:宋体'>第二步：</span></p>
+
+<p class=MsoNormal><span lang=EN-US>mkdir -p /data/oracle</span><span
+style='font-family:宋体'>　　</span><span lang=EN-US>#oracle</span><span
+style='font-family:宋体'>数据库安装目录</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;mkdir -p /data/orainventory</span><span
+style='font-family:宋体'>　　</span><span lang=EN-US>#oracle</span><span
+style='font-family:宋体'>数据库配置文件目录</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;mkdir -p /data/database</span><span
+style='font-family:宋体'>　　</span><span lang=EN-US>#oracle</span><span
+style='font-family:宋体'>数据库软件包解压目录</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>cd /data</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>ls</span><span style='font-family:宋体'>　　</span><span
+lang=EN-US>#</span><span style='font-family:宋体'>创建完毕检查一下（强迫症）</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>chown -R oracle:oinstall /data/oracle</span><span
+style='font-family:宋体'>　　</span><span lang=EN-US>#</span><span
+style='font-family:宋体'>设置目录所有者为</span><span lang=EN-US>oinstall</span><span
+style='font-family:宋体'>用户组的</span><span lang=EN-US>oracle</span><span
+style='font-family:宋体'>用户</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>chown -R oracle:oinstall /data/orainventory</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>chown -R oracle:oinstall /data/database</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:26.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:26.0pt;font-family:宋体'>第三步</span></p>
+
+<p class=MsoNormal><span lang=EN-US>unzip linux.x64_11gR2_database_1of2.zip&nbsp;&nbsp;
+/data/database&nbsp; </span></p>
+
+<p class=MsoNormal><span lang=EN-US>unzip linux.x64_11gR2_database_2of2.zip&nbsp;
+/data/database</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:26.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:26.0pt;font-family:宋体'>第四步</span><span
+style='font-family:宋体'>：修改</span><span lang=EN-US>OS</span><span
+style='font-family:宋体'>系统标识，</span><span lang=EN-US>oracle</span><span
+style='font-family:宋体'>默认不支持</span><span lang=EN-US>CentOS</span><span
+style='font-family:宋体'>系统安装</span></p>
+
+<p class=MsoNormal><span lang=EN-US>cat /proc/version </span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>cat /etc/redhat-release</span><span
+style='font-family:宋体'>　　</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>vim /etc/redhat-release#</span><span
+style='font-family:宋体'>改为</span><span lang=EN-US>redhat-7 </span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>cat /etc/redhat-release </span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-family:宋体'>第五步：配置用户的环境变量（红色部分为添加代码</span></p>
+
+<p class=MsoNormal><span lang=EN-US>vim &nbsp;/home/oracle/.bash_profile</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US># .bash_profile</span></p>
+
+<p class=MsoNormal><span lang=EN-US># Get the aliases and functions</span></p>
+
+<p class=MsoNormal><span lang=EN-US>if [ -f ~/.bashrc ]; then</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;&nbsp;&nbsp; . ~/.bashrc</span></p>
+
+<p class=MsoNormal><span lang=EN-US>fi</span></p>
+
+<p class=MsoNormal><span lang=EN-US># User specific environment and startup
+programs</span></p>
+
+<p class=MsoNormal><span lang=EN-US>PATH=$PATH:$HOME/.local/bin:$HOME/bin</span></p>
+
+<p class=MsoNormal><span lang=EN-US>export PATH</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:red'>export
+ORACLE_BASE=/data/oracle #oracle</span><span style='font-family:宋体;color:red'>数据库安装目录</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:red'>export
+ORACLE_HOME=$ORACLE_BASE/product/11.2.0/db_1 #oracle</span><span
+style='font-family:宋体;color:red'>数据库路径</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:red'>export ORACLE_SID=orcl
+#oracle</span><span style='font-family:宋体;color:red'>启动数据库实例名</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:red'>export ORACLE_TERM=xterm
+#xterm</span><span style='font-family:宋体;color:red'>窗口模式安装</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:red'>export
+PATH=$ORACLE_HOME/bin:/usr/sbin:$PATH #</span><span style='font-family:宋体;
+color:red'>添加系统环境变量</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:red'>export
+LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib #</span><span style='font-family:
+宋体;color:red'>添加系统环境变量</span><span lang=EN-US style='color:red'>,OCI</span><span
+style='font-family:宋体;color:red'>的路径</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:red'>export LANG=en_US.UTF-8 #</span><span
+style='font-family:宋体;color:red'>防止安装过程出现乱码</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:red'>export
+NLS_LANG=AMERICAN_AMERICA.UTF8&nbsp; #</span><span style='font-family:宋体;
+color:red'>设置</span><span lang=EN-US style='color:red'>Oracle</span><span
+style='font-family:宋体;color:red'>客户端字符集，必须与</span><span lang=EN-US
+style='color:red'>Oracle</span><span style='font-family:宋体;color:red'>安装时设置的字符集保持一致，</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:red'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>source &nbsp;/home/oracle/.bash_profile
+#</span><span style='font-family:宋体;color:black'>使设置立即生效</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>yum -y install glibc-devel.i686 glibc-devel
+20170612</span><span style='font-family:宋体'>没做</span> <span style='font-family:
+宋体'>快照</span><span lang=EN-US>1</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-family:宋体;color:black'>第六步：必须注销切换用户为</span><span
+lang=EN-US style='color:black'>ORACLE</span></p>
+
+<p class=MsoNormal><span style='font-family:宋体;color:black'>在解压后的文件中</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>./runInstaller</span></p>
+
+<p class=MsoNormal><span style='font-family:宋体;color:black'>如果出现乱码：则执行一下命令</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>export LANG=</span><span
+lang=EN-US>en_US.UTF-8</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>1</span><span
+style='font-family:宋体;color:black'>、</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=598 height=415 id="图片 1"
+src="oracle_install.files/image001.jpg"></span><span style='font-family:宋体;
+color:black'>直接点击</span><span lang=EN-US style='color:black'>NEXT</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>2</span><span
+style='font-family:宋体;color:black'>、选择第二项，点击</span><span lang=EN-US
+style='color:black'>NEXT</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=597 height=418 id="图片 2"
+src="oracle_install.files/image002.jpg"></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>3</span><span
+style='font-family:宋体;color:black'>、点击</span><span lang=EN-US style='color:
+black'>NEXT</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=554 height=390 id="图片 3"
+src="oracle_install.files/image003.jpg"></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>4</span><span
+style='font-family:宋体;color:black'>、点击</span><span lang=EN-US style='color:
+black'>NEXT</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=554 height=387 id="图片 4"
+src="oracle_install.files/image004.jpg"></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>5</span><span
+style='font-family:宋体;color:black'>、</span><span style='font-family:宋体'>选中第二项，点击</span><span
+lang=EN-US>next</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=554 height=381 id="图片 5"
+src="oracle_install.files/image005.jpg"></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>6</span><span
+style='font-family:宋体;color:black'>、</span><span lang=EN-US style='color:black'>Oracle
+Base</span><span style='font-family:宋体;color:black'>为第五步中的安装目录，如果配置文件正确，是自动载入，</span><span
+lang=EN-US style='color:black'>NEXT</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=554 height=378 id="图片 16"
+src="oracle_install.files/image006.jpg"></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>7</span><span
+style='font-family:宋体;color:black'>、如果只出现一个</span><span lang=EN-US
+style='color:black'>DBA</span><span style='font-family:宋体;color:black'>也可以。</span><span
+lang=EN-US style='color:black'>NEXT</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=554 height=399 id="图片 23"
+src="oracle_install.files/image007.jpg"></span></p>
+
+<p class=MsoListParagraph style='margin-left:18.0pt;text-indent:-18.0pt'><span
+lang=EN-US style='color:black'>8、<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><span lang=EN-US style='color:black'>NEXT</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=554 height=339 id="图片 7"
+src="oracle_install.files/image008.jpg"></span></p>
+
+<p class=MsoListParagraph style='margin-left:18.0pt;text-indent:-18.0pt'><span
+lang=EN-US>9、<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+style='font-family:宋体'>如果为以上报错信息，可暂时忽略，点击右上角的</span><span lang=EN-US>ignore all</span><span
+style='font-family:宋体'>，继续</span><span lang=EN-US>next</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=554 height=431 id="图片 8"
+src="oracle_install.files/image009.jpg"></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>10</span><span
+style='font-family:宋体;color:black'>、</span><span lang=EN-US style='color:black'>finish</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=542 height=454 id="图片 9"
+src="oracle_install.files/image010.jpg"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>11</span><span style='font-family:宋体'>、软件安装到</span><span
+lang=EN-US>84%</span><span style='font-family:宋体'>时，</span></p>
+
+<p class=MsoNormal><span lang=EN-US>(1)</span><span style='font-family:宋体'>出现提示框：</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Error&nbsp;in&nbsp;invoking&nbsp;target&nbsp;'agent&nbsp;nmhs'&nbsp;of&nbsp;makefile&nbsp;'/u01/app/oracle/product/11.2.0/db_1/sysman/lib/ins_emagent.mk'.&nbsp;&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-family:宋体'>解决方案：再打开一个</span><span
+lang=EN-US>terminal</span><span style='font-family:宋体'>；</span></p>
+
+<p class=MsoNormal><span lang=EN-US>vim&nbsp;$ORACLE_HOME/sysman/lib/ins_emagent.mk&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-family:宋体'>找到</span><span lang=EN-US>190</span><span
+style='font-family:宋体'>行的</span><span lang=EN-US>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $(MK_EMAGENT_NMECTL)&nbsp;
+</span><span style='font-family:宋体'>改为</span><span lang=EN-US> $(MK_EMAGENT_NMECTL)&nbsp;-lnnz11&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-family:宋体'>返回提示框点击</span><span lang=EN-US>Retry</span></p>
+
+<p class=MsoNormal><span lang=EN-US>(2) ins_ctx.mk </span><span
+style='font-family:宋体'>问题，</span></p>
+
+<p class=MsoNormal><span style='font-family:宋体'>原因：缺少</span><span lang=EN-US>32</span><span
+style='font-family:宋体'>位的</span><span lang=EN-US>GCC</span></p>
+
+<p class=MsoNormal><span style='font-family:宋体'>解决方案：桌面</span><span lang=EN-US>root</span><span
+style='font-family:宋体'>下</span><span lang=EN-US>yum -y install glibc-devel.i686
+glibc-devel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='font-family:宋体;
+color:red'>安装完成后必须退出，</span><span style='color:red'> <span lang=EN-US>root</span></span><span
+style='font-family:宋体;color:red'>要将软件安装的</span><span lang=EN-US
+style='color:red'>oracle</span><span style='font-family:宋体;color:red'>目录清空，</span><span
+lang=EN-US style='color:red'>2017</span><span style='font-family:宋体;color:red'>年</span><span
+lang=EN-US style='color:red'>6</span><span style='font-family:宋体;color:red'>月</span><span
+lang=EN-US style='color:red'>4</span><span style='font-family:宋体;color:red'>日</span><span
+lang=EN-US style='color:red'> 19:56:58</span><span style='font-family:宋体;
+color:red'>，再到这里的时候继续报错，但是</span><span lang=EN-US style='color:red'>continue</span><span
+style='font-family:宋体;color:red'>后，貌似没有问题，</span><span style='font-family:宋体;
+color:black'>直接退出，</span><span lang=EN-US style='color:black'>20170613</span><span
+style='font-family:宋体;color:black'>：直接</span><span lang=EN-US style='color:
+black'>CONTINUE</span></p>
+
+<p class=MsoNormal><span lang=EN-US>cd&nbsp;&nbsp;&nbsp;&nbsp; /data/oracle/</span></p>
+
+<p class=MsoNormal><span lang=EN-US>rm –rf *</span></p>
+
+<p class=MsoNormal><span lang=EN-US>cd&nbsp;&nbsp;&nbsp;&nbsp; /data/orainventory/</span></p>
+
+<p class=MsoNormal><span lang=EN-US>rm –rf *</span></p>
+
+<p class=MsoNormal><span style='font-family:宋体'>软件安装到</span><span lang=EN-US>94%</span><span
+style='font-family:宋体'>时，等待一段时间后，会弹出提示框：</span><span lang=EN-US>root</span><span
+style='font-family:宋体'>用户权限下执行两个</span><span lang=EN-US>.sh</span><span
+style='font-family:宋体'>文件；</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=554 height=403 id="图片 10"
+src="oracle_install.files/image011.png"></span></p>
+
+<p class=MsoNormal><span style='font-family:宋体'>首先记录下文件所在路径，点击</span><span
+lang=EN-US>OK</span><span style='font-family:宋体'>，数据库安装界面显示安装成功，关闭界面，</span></p>
+
+<p class=MsoNormal><span style='font-family:宋体'>执行指令</span><span lang=EN-US>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; “.</span><span
+style='font-family:宋体'>文件路径</span><span lang=EN-US>”</span><span
+style='font-family:宋体'>。</span></p>
+
+<p class=MsoNormal><span lang=EN-US>12</span><span style='font-family:宋体'>、</span><span
+lang=EN-US>root</span><span style='font-family:宋体'>用户权限下，执行指令</span></p>
+
+<p class=MsoNormal><span style='font-family:宋体'>进入安装主目录下的</span><span
+lang=EN-US>bin</span><span style='font-family:宋体'>文件夹下：执行</span><span
+lang=EN-US>2</span><span style='font-family:宋体'>个</span><span lang=EN-US>sh</span><span
+style='font-family:宋体'>文件</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>13</span><span style='font-family:宋体'>、切换到</span><span
+lang=EN-US>ORACLE</span><span style='font-family:宋体'>，安装</span><span
+lang=EN-US>database</span><span style='font-family:宋体'>，执行指令：</span><span
+lang=EN-US>dbca&nbsp;&nbsp; </span><span style='font-family:宋体'>，</span><span
+lang=EN-US>NEXT</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=543 height=378 id="图片 11"
+src="oracle_install.files/image012.jpg"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>14</span><span style='font-family:宋体'>、选择第一项，</span><span
+lang=EN-US>NEXT</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=522 height=365 id="图片 12"
+src="oracle_install.files/image013.jpg"></span></p>
+
+<p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt'><span
+lang=EN-US>15、</span><span style='font-family:宋体'>选择第二项，</span><span
+lang=EN-US>NEXT</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=513 height=360 id="图片 13"
+src="oracle_install.files/image014.jpg"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>16</span><span style='font-family:宋体'>、填写实例的名称，在第五步的配置文件中写过了，此处会和后续配置监听、服务对应。</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=554 height=440 id="图片 24"
+src="oracle_install.files/image015.jpg"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>17</span><span style='font-family:宋体'>、去掉对勾，</span><span
+lang=EN-US>NEXT</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=535 height=386 id="图片 15"
+src="oracle_install.files/image016.jpg"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>18</span><span style='font-family:宋体'>、根据自己需要设置密码，统一设置为</span><span
+lang=EN-US>oracle</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=528 height=361 id="图片 17"
+src="oracle_install.files/image017.jpg"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>19</span><span style='font-family:宋体'>、</span><span
+lang=EN-US>NEXT</span></p>
+
+<p class=MsoNormal><span lang=EN-US>20</span><span style='font-family:宋体'>、在</span><span
+lang=EN-US>step 9 of11</span><span style='font-family:宋体'>中设置字符集</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=554 height=460 id="图片 25"
+src="oracle_install.files/image018.jpg"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>21</span><span style='font-family:宋体'>、点击</span><span
+lang=EN-US>NEXT</span></p>
+
+<p class=MsoNormal><span lang=EN-US>22</span><span style='font-family:宋体'>、点击</span><span
+lang=EN-US>FINISH</span><span style='font-family:宋体'>，</span></p>
+
+<p class=MsoNormal align=left style='text-align:left'><span lang=EN-US
+style='font-size:12.0pt;font-family:宋体'><img width=552 height=431 id="图片 18"
+src="oracle_install.files/image019.jpg"
+alt="说明: C:\Users\wpc\AppData\Roaming\Tencent\Users\471024817\QQ\WinTemp\RichOle\13)5CY)9K4~JO~~OT[9_7{U.png"></span></p>
+
+<p class=MsoNormal><span style='font-family:宋体'>将鼠标移动到中间白条上拖动。点击</span><span
+lang=EN-US>OK</span></p>
+
+<p class=MsoNormal><span lang=EN-US>23</span><span style='font-family:宋体'>、执行</span><span
+lang=EN-US>netca</span><span style='font-family:宋体'>指令，配置监听</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=540 height=359 id="图片 19"
+src="oracle_install.files/image020.jpg"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>24</span><span style='font-family:宋体'>、选中</span><span
+lang=EN-US>add</span><span style='font-family:宋体'>，点击</span><span lang=EN-US>nex</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=316 height=207 id="图片 20"
+src="oracle_install.files/image021.jpg"></span></p>
+
+<p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt'><span
+lang=EN-US>25、</span><span style='font-family:宋体'>输入监听名称，点击</span><span
+lang=EN-US>next</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=486 height=416 id="图片 14"
+src="oracle_install.files/image022.png"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>26</span><span style='font-family:宋体'>、</span><span
+lang=EN-US>NEXT</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=301 height=205 id="图片 22"
+src="oracle_install.files/image023.jpg"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>27</span><span style='font-family:宋体'>、配置端口，</span><span
+lang=EN-US>redhat</span><span style='font-family:宋体'>操作系统一般会占用</span><span
+lang=EN-US>1521</span><span style='font-family:宋体'>，所以需要更换为</span><span
+lang=EN-US>1555</span></p>
+
+<p class=MsoListParagraph style='margin-left:21.0pt;text-indent:0cm'><span
+lang=EN-US><img width=446 height=422 id="图片 26"
+src="oracle_install.files/image024.png"
+alt="说明: C:\Users\wpc\AppData\Roaming\Tencent\Users\471024817\QQ\WinTemp\RichOle\%PU%1U_1L7D]`0DJPEE{U1U.png"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>28</span><span style='font-family:宋体'>、一直点击</span><span
+lang=EN-US>next</span><span style='font-family:宋体'>，最后点击</span><span
+lang=EN-US>finish</span><span style='font-family:宋体'>保存结束</span></p>
+
+<p class=MsoNormal><span lang=EN-US>29</span><span style='font-family:宋体'>、测试是否安装成功：</span></p>
+
+<p class=MsoNormal><span lang=EN-US>(1)</span><span style='font-family:宋体'>、</span><span
+lang=EN-US>lsnrctl start</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;(2)</span><span style='font-family:
+宋体'>、</span><span lang=EN-US>sqlplus / &nbsp;as &nbsp;sysdba</span></p>
+
+<p class=MsoNormal><span lang=EN-US>(3)</span><span style='font-family:宋体'>、</span><span
+lang=EN-US>select * from user_sys_privs;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-family:宋体'>重启后：要等一会（</span><span
+lang=EN-US>5min</span><span style='font-family:宋体'>？）</span></p>
+
+<p class=MsoNormal><span lang=EN-US>lsnrctl start</span></p>
+
+<p class=MsoNormal><span lang=EN-US>sqlplus /&nbsp; as&nbsp; sysdba</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Startup</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+</div>
+
+</body>
+
+</html>

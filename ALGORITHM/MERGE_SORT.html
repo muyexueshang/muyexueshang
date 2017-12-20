@@ -1,0 +1,50 @@
+﻿
+<!DOCTYPE html>
+<html>
+    <body>
+        <pre>
+/*
+归并排序:MERGE_SORT
+时间复杂度：O(nlogn)
+空间复杂度:O(n)
+*/
+void merge(int array[],int array_temp[],int head,int middle,int array_length)
+{
+	int k=head,j=middle+1;
+	while(head&lt=middle&&j&lt=array_length)
+	{
+		array[head]&ltarray[j]?array_temp[k++]=array[head++]:array_temp[k++]=array[j++];
+	}
+	while(head&lt=middle)
+	{
+		array_temp[k++]=array[head++];
+	}
+	while(j&lt=array_length)
+	{
+		array_temp[k++]=array[j++];
+	}
+}
+void merge_sort(int array[],int array_temp[],int array_length)
+{
+	int length=1,*p=array,*temp;
+	while(length&ltarray_length)
+	{
+		int old_length=length,i=0;
+		length*=2;
+		while(i+length&ltarray_length)
+		{
+			merge(p,array_temp,i,i+old_length-1,i+length-1);
+			i+=length;
+		}
+		if(i+old_length&ltarray_length)
+		{
+			merge(p,array_temp,i,i+old_length-1,array_length-1);
+		}
+		temp=p;
+		p=array_temp;
+		array_temp=temp;
+	}
+}
+</pre>
+    </body>
+</html>
